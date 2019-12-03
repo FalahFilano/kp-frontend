@@ -35,6 +35,11 @@ export default function() {
       title: "Errors",
       htmlBefore: '<i class="material-icons">error</i>',
       to: "/errors",
+    },
+    {
+      title: "Tambah Sertifikat Lomba",
+      htmlBefore: '<i class="fas fa-trophy"></i>',
+      to: "/lomba/create",
     }
   ];
 }
