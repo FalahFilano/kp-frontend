@@ -9,6 +9,7 @@ import {
 } from "shards-react";
 import React, {Component} from "react";
 import PageTitle from "../components/common/PageTitle";
+import {Link} from "react-router-dom";
 
 class Register extends Component {
   render() {
@@ -84,8 +85,10 @@ class Register extends Component {
                     </Col>
                   </Row>
 
-                  <Button type="submit" className="mt-3 px-4">Register</Button> { }
-                  <Button outline className="mt-3">Login</Button>
+                  <Button type="submit" className="mt-3 px-4">Register</Button>
+                  <Link to="/login">
+                    <Button theme="white" className="ml-2 mt-3">Login</Button>
+                  </Link>
                 </Form>
 
               </CardBody>
