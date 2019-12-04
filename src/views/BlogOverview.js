@@ -93,7 +93,7 @@ BlogOverview.defaultProps = {
       ]
     },
     {
-      label: "Pages",
+      label: "pages",
       value: "182",
       percentage: "12.4",
       increase: true,

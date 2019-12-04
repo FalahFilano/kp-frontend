@@ -7,7 +7,7 @@ import {
   Form,
   FormInput,
   FormGroup,
-  Button, InputGroup, InputGroupAddon, InputGroupText
+  Button, InputGroup, InputGroupAddon, InputGroupText, Tooltip, FormFeedback
 } from "shards-react";
 
 const FormNewLomba = () => (
@@ -84,7 +84,7 @@ const FormNewLomba = () => (
                 <FormGroup>
                   <label>Gambar Sertifikat</label>
                   <div className="custom-file mb-3">
-                    <input type="file" className="custom-file-input" id="feGambarSertif" />
+                    <input type="file" className="custom-file-input" accept="image/*" id="feGambarSertif" />
                     <label className="custom-file-label" htmlFor="feGambarSertif">
                       Pilih Gambar...
                     </label>
@@ -93,9 +93,7 @@ const FormNewLomba = () => (
               </Col>
             </Row>
 
-
-
-            <Button type="submit">Tambah Sertifikat Baru</Button>
+            <Button type="submit" id="tambahSertif">Tambah Sertifikat Baru</Button>
           </Form>
         </Col>
       </Row>

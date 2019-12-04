@@ -16,19 +16,15 @@ class AddNewLomba extends Component {
         return (
             <Container fluid className="main-content-container px-4 pb-4 mx-auto">
                 <Row noGutters className="page-header py-4">
-                  <Col lg="2"/>
                   <Col lg="8">
                     <PageTitle sm="4"
                                subtitle="Rekap Lomba"
                                title="Tambah Sertifikat Lomba"
                                className="text-sm-left" />
                   </Col>
-                  <Col lg="2"/>
-
                 </Row>
 
                 <Row>
-                  <Col lg="2"/>
                   <Col lg="8">
                     <Card small className="pb-3">
                       <CardHeader className="border-bottom mb-2">
@@ -37,7 +33,6 @@ class AddNewLomba extends Component {
                       <FormNewLomba />
                     </Card>
                   </Col>
-                  <Col lg="2"/>
                 </Row>
             </Container>
         );

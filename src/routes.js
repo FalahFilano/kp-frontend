@@ -13,13 +13,15 @@ import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import AddNewLomba from "./views/AddNewLomba";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export default [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    component: () => <Redirect to="/login" />
   },
   {
     path: "/blog-overview",
@@ -55,6 +57,14 @@ export default [
     path: "/blog-posts",
     layout: DefaultLayout,
     component: BlogPosts
+  },
+  {
+    path: "/login",
+    layout: () => <Login />
+  },
+  {
+    path: "/register",
+    layout: () => <Register />
   },
   {
     path: "/lomba/create",
