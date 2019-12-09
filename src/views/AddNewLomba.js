@@ -16,7 +16,7 @@ class AddNewLomba extends Component {
         return (
             <Container fluid className="main-content-container px-4 pb-4 mx-auto">
                 <Row noGutters className="page-header py-4">
-                  <Col lg="8">
+                  <Col>
                     <PageTitle sm="4"
                                subtitle="Rekap Lomba"
                                title="Tambah Sertifikat Lomba"
