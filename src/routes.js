@@ -15,6 +15,9 @@ import BlogPosts from "./views/BlogPosts";
 import AddNewLomba from "./views/AddNewLomba";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Beranda from "./views/Beranda";
+import Verifikasi from "./views/Verifikasi";
+import DetailPengajuan from "./views/DetailPengajuan";
 
 export default [
   {
@@ -70,5 +73,20 @@ export default [
     path: "/lomba/create",
     layout: DefaultLayout,
     component: AddNewLomba
+  },
+  {
+    path: "/admin/verifikasi",
+    layout: DefaultLayout,
+    component: Verifikasi
+  },
+  {
+    path: "/detailpengajuan",
+    layout: DefaultLayout,
+    component: DetailPengajuan
+  },
+  {
+    path: "/beranda",
+    layout: DefaultLayout,
+    component: Beranda
   }
 ];
