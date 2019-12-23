@@ -1,17 +1,81 @@
 import {
-  Badge, Button,
+  Button,
   Card,
-  CardBody, CardHeader,
-  CardImg, CardImgOverlay,
+  CardBody,
   Col,
-  Container, Form, FormFeedback, FormGroup, FormInput,
-  Row
+  Container, Form, FormGroup, FormInput,
+  Row,
+  Alert
 } from "shards-react";
 import React, {Component} from "react";
-import PageTitle from "../components/common/PageTitle";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
+import { register } from "../api";
+import SessionManager from "../utils/session";
 
 class Register extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      alert: {
+        type: '',
+        message: '',
+        open: false
+      },
+       form: {
+         nama: '',
+         nrp: '',
+         email: '',
+         password: '',
+         password_confirmation: ''
+       }
+    }
+  }
+
+  componentDidMount() {
+    if (SessionManager.isLoggedIn()) {
+      this.props.history.replace('/beranda');
+    }
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value
+      }
+    });
+  }
+
+  submitSuccessCallback = () => {
+    this.props.history.replace({
+      pathname: '/login'
+    });
+  }
+
+  submitErrorCallback = (data) => {
+    this.setState({
+      alert: {
+        type: 'danger',
+        open: true,
+        message: data
+      }
+    });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    this.setState({
+      alert: {
+        ...this.state.alert,
+        open: false
+      }
+    });
+
+    register(this.state.form, this.submitSuccessCallback, this.submitErrorCallback);
+  }
+  
   render() {
     return (
       <Container fluid>
@@ -31,17 +95,22 @@ class Register extends Component {
               </div>
               <CardBody className="p-5">
 
-                <h3><strong>Register</strong></h3>
+                <h3 className="mb-4"><strong>Register</strong></h3>
 
-                <Form>
+                <Alert theme={this.state.alert.type} open={this.state.alert.open} fade={true}>
+                  {this.state.alert.message}
+                </Alert>
 
+                <Form onSubmit={this.handleSubmit}>
                   <Row form>
-                    <Col md="12"className="mt-4">
+                    <Col md="12">
                       <FormGroup>
-                        <label htmlFor="feNamaLengkap">Nama Lengkap</label>
+                        <label htmlFor="nama">Nama Lengkap</label>
                         <FormInput
-                          id="feNamaLengkap"
+                          id="nama"
+                          name="nama"
                           placeholder="Nama Lengkap"
+                          onChange={this.handleChange}
                         />
                       </FormGroup>
                     </Col>
@@ -50,10 +119,12 @@ class Register extends Component {
                   <Row form>
                     <Col md="6">
                       <FormGroup>
-                        <label htmlFor="feNRP">NRP</label>
+                        <label htmlFor="nrp">NRP</label>
                         <FormInput
-                          id="feNRP"
+                          id="nrp"
+                          name="nrp"
                           placeholder="NRP Baru"
+                          onChange={this.handleChange}
                         />
                       </FormGroup>
                     </Col>
@@ -62,11 +133,13 @@ class Register extends Component {
                   <Row form>
                     <Col md="12">
                       <FormGroup>
-                        <label htmlFor="feEmail">Email</label>
+                        <label htmlFor="email">Email</label>
                         <FormInput
-                          id="feEmail"
+                          id="email"
+                          name="email"
                           placeholder="Email"
                           type="email"
+                          onChange={this.handleChange}
                         />
                       </FormGroup>
                     </Col>
@@ -75,11 +148,28 @@ class Register extends Component {
                   <Row form>
                     <Col md="12">
                       <FormGroup>
-                        <label htmlFor="fePassword">Password</label>
+                        <label htmlFor="password">Password</label>
                         <FormInput
-                          id="fePassword"
+                          id="password"
+                          name="password"
                           placeholder="Password"
                           type="password"
+                          onChange={this.handleChange}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+
+                  <Row form>
+                    <Col md="12">
+                      <FormGroup>
+                        <label htmlFor="password_confirmation">Confirm Password</label>
+                        <FormInput
+                          id="password_confirmation"
+                          name="password_confirmation"
+                          placeholder="Confirm Password"
+                          type="password"
+                          onChange={this.handleChange}
                         />
                       </FormGroup>
                     </Col>
@@ -100,5 +190,4 @@ class Register extends Component {
   }
 }
 
-
-export default Register;
+export default withRouter(Register);

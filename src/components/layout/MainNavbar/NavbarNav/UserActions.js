@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {
   Dropdown,
   DropdownToggle,
@@ -9,8 +9,9 @@ import {
   NavItem,
   NavLink
 } from "shards-react";
+import SessionManager from "../../../../utils/session";
 
-export default class UserActions extends React.Component {
+class UserActions extends React.Component {
   constructor(props) {
     super(props);
 
@@ -19,12 +20,20 @@ export default class UserActions extends React.Component {
     };
 
     this.toggleUserActions = this.toggleUserActions.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   toggleUserActions() {
     this.setState({
       visible: !this.state.visible
     });
+  }
+
+  handleLogout(e) {
+    e.preventDefault();
+
+    SessionManager.logout();
+    this.props.history.push('/login');
   }
 
   render() {
@@ -52,7 +61,7 @@ export default class UserActions extends React.Component {
             <i className="material-icons">&#xE896;</i> Transactions
           </DropdownItem>
           <DropdownItem divider />
-          <DropdownItem tag={Link} to="/" className="text-danger">
+          <DropdownItem tag={Link} to="/" className="text-danger" onClick={this.handleLogout}>
             <i className="material-icons text-danger">&#xE879;</i> Logout
           </DropdownItem>
         </Collapse>
@@ -60,3 +69,5 @@ export default class UserActions extends React.Component {
     );
   }
 }
+
+export default withRouter(UserActions);

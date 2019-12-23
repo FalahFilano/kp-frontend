@@ -1,17 +1,77 @@
 import {
-  Badge, Button,
+  Button,
   Card,
-  CardBody, CardHeader,
-  CardImg, CardImgOverlay,
+  CardBody,
   Col,
-  Container, Form, FormFeedback, FormGroup, FormInput,
-  Row
+  Container, Form, FormGroup, FormInput,
+  Row,
+  Alert
 } from "shards-react";
 import React, {Component} from "react";
-import PageTitle from "../components/common/PageTitle";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
+import { login } from "../api";
+import axios from "axios";
+import SessionManager from "../utils/session";
 
 class Login extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      alert: {
+        type: '',
+        message: '',
+        open: false
+      },
+      form: {
+        nrp: '',
+        password: ''
+      }
+    }
+  }
+
+  componentDidMount() {
+    if (SessionManager.isLoggedIn()) {
+      this.props.history.replace('/beranda');
+    }
+  }
+  
+  handleChange = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value
+      }
+    })
+  }
+
+  submitSuccessCallback = (data) => {
+    this.props.history.push('/beranda');
+  }
+
+  submitErrorCallback = (data) => {
+    this.setState({
+      alert: {
+        type: 'danger',
+        open: true,
+        message: data
+      }
+    });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    this.setState({
+      alert: {
+        ...this.state.alert,
+        open: false
+      }
+    });
+
+    login(this.state.form, this.submitSuccessCallback, this.submitErrorCallback);
+  }
+
   render() {
     return (
       <Container fluid>
@@ -31,25 +91,33 @@ class Login extends Component {
               </div>
               <CardBody className="p-5">
 
-                <h3><strong>Login</strong></h3>
+                <h3 className="mb-4"><strong>Login</strong></h3>
 
-                <Form>
+                <Alert theme={this.state.alert.type} open={this.state.alert.open} fade={true}>
+                  {this.state.alert.message}
+                </Alert>
+
+                <Form onSubmit={this.handleSubmit}>
                   <Row form>
-                    <Col md="8" className="mt-4">
+                    <Col md="8">
                       <FormGroup>
-                        <label htmlFor="feNRP">NRP</label>
+                        <label htmlFor="nrp">NRP</label>
                         <FormInput
-                          id="feNRP"
+                          id="nrp"
+                          name="nrp"
                           placeholder="NRP Baru"
+                          onChange={this.handleChange}
                         />
                       </FormGroup>
 
                       <FormGroup>
-                        <label htmlFor="fePassword">Password</label>
+                        <label htmlFor="password">Password</label>
                         <FormInput
-                          id="fePassword"
+                          id="password"
+                          name="password"
                           placeholder="Password"
                           type="password"
+                          onChange={this.handleChange}
                         />
                       </FormGroup>
                     </Col>
@@ -70,5 +138,4 @@ class Login extends Component {
   }
 }
 
-
-export default Login;
+export default withRouter(Login);
