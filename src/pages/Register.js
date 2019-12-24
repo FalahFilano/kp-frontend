@@ -34,7 +34,7 @@ class Register extends Component {
 
   componentDidMount() {
     if (SessionManager.isLoggedIn()) {
-      this.props.history.replace('/beranda');
+      this.props.history.replace('/');
     }
   }
 

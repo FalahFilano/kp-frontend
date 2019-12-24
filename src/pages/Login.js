@@ -32,7 +32,7 @@ class Login extends Component {
 
   componentDidMount() {
     if (SessionManager.isLoggedIn()) {
-      this.props.history.replace('/beranda');
+      this.props.history.replace('/b');
     }
   }
   
@@ -46,7 +46,7 @@ class Login extends Component {
   }
 
   submitSuccessCallback = (data) => {
-    this.props.history.push('/beranda');
+    this.props.history.push('/');
   }
 
   submitErrorCallback = (data) => {

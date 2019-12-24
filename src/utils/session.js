@@ -1,4 +1,8 @@
 const KEY = "asdf";
+export const Role = {
+    admin: 'admin',
+    mahasiswa: 'mahasiswa'
+};
 
 export default class SessionManager {
     static login = (data) => {
@@ -25,6 +29,12 @@ export default class SessionManager {
         let data = JSON.parse(localStorage.getItem(KEY));
 
         return data ? data.user : null;
+    }
+
+    static getUserRole = () => {
+        let user = SessionManager.getUser();
+
+        return user ? user.role : null;
     }
 
     static isLoggedIn = () => {
