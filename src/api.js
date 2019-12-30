@@ -56,3 +56,115 @@ export const register = (params, successCallback = null, errorCallback = null) =
                 console.log(message);
         });
 }
+
+export const addLomba = (params, successCallback = null, errorCallback = null) => {
+    request.post('/api/lomba/store', params, {
+        headers: {
+            'Authorization': SessionManager.getTokenWithType()
+        }
+    })
+    .then(res => {
+        if (successCallback != null)
+            successCallback(res.data);
+        else
+            console.log(res.data);
+    }, )
+    .catch(error => {
+        let message = 'Unexpected error, try again later.';
+        if (error.response) {
+            let data = error.response.data;
+            message = data[Object.keys(data)[0]][0];
+        } else if (error.request) {
+            message = error.request;
+        } 
+
+        if (errorCallback != null)
+            errorCallback(message);
+        else
+            console.log(message);
+    });
+}
+
+export const getListLomba = (successCallback = null, errorCallback = null) => {
+    request.get('/api/lomba', {
+        headers: {
+            'Authorization': SessionManager.getTokenWithType()
+        }
+    })
+    .then(res => {
+        if (successCallback != null)
+            successCallback(res.data);
+        else
+            console.log(res.data);
+    }, )
+    .catch(error => {
+        let message = 'Unexpected error, try again later.';
+        if (error.response) {
+            let data = error.response.data;
+            message = data[Object.keys(data)[0]][0];
+        } else if (error.request) {
+            message = error.request;
+        } 
+
+        if (errorCallback != null)
+            errorCallback(message);
+        else
+            console.log(message);
+    });
+}
+
+export const showLomba = (id, successCallback = null, errorCallback = null) => {
+    request.get('/api/lomba/'+id, {
+        headers: {
+            'Authorization': SessionManager.getTokenWithType()
+        }
+    })
+    .then(res => {
+        if (successCallback != null)
+            successCallback(res.data);
+        else
+            console.log(res.data);
+    }, )
+    .catch(error => {
+        let message = 'Unexpected error, try again later.';
+        if (error.response) {
+            let data = error.response.data;
+            message = data[Object.keys(data)[0]][0];
+        } else if (error.request) {
+            message = error.request;
+        } 
+
+        if (errorCallback != null)
+            errorCallback(message);
+        else
+            console.log(message);
+    });
+}
+
+export const getUnverifiedLomba = (successCallback = null, errorCallback = null) => {
+    request.get('/api/lomba/verifikasi', {
+        headers: {
+            'Authorization': SessionManager.getTokenWithType()
+        }
+    })
+    .then(res => {
+        if (successCallback != null)
+            successCallback(res.data);
+        else
+            console.log(res.data);
+    }, )
+    .catch(error => {
+        let message = 'Unexpected error, try again later.';
+        if (error.response) {
+            let data = error.response.data;
+            message = data[Object.keys(data)[0]][0];
+        } else if (error.request) {
+            message = error.request;
+        } 
+
+        if (errorCallback != null)
+            errorCallback(message);
+        else
+            console.log(message);
+    });
+}

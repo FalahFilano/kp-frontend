@@ -1,25 +1,54 @@
 import React, {Component} from "react";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
   Card, CardBody, CardHeader, CardImg,
   Col,
   Container,
   Row
 } from "shards-react";
 import PageTitle from "../components/common/PageTitle";
-import FormNewLomba from "../components/components-overview/FormNewLomba";
+import { showLomba } from "../api";
 
-class DetailPengajuan extends Component{
+class DetailPengajuan extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      alert: {
+        type: '',
+        message: '',
+        open: false
+      },
+      lomba: {
+        nama: '',
+        penyelenggara: '',
+        tahun: '',
+        skala: '',
+        sertif_link: '',
+        user: {
+          nama: '',
+        }
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.updateLomba();
+  }
+
+  updateLomba = () => {
+    const id = this.props.match.params.id;
+    
+    showLomba(id, (res) => {
+      console.log(res.data);
+      this.setState({
+        lomba: res.data
+      });
+    });
+  }
+    
   render() {
     return (
       <Container fluid className="main-content-container px-4 pb-4">
-        {/*<Breadcrumb>*/}
-        {/*  <BreadcrumbItem>*/}
-        {/*    <a href="/admin/verifikasi">Verifikasi</a>*/}
-        {/*  </BreadcrumbItem>*/}
-        {/*  <BreadcrumbItem active>Detail Pengajuan</BreadcrumbItem>*/}
-        {/*</Breadcrumb>*/}
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4"
                      title="Detail Pengajuan"
@@ -31,7 +60,7 @@ class DetailPengajuan extends Component{
           <Col>
             <Card small className="pb-3">
               <CardHeader className="border-bottom mb-2">
-                <h6 className="m-0">Lomba Hackaton: Kartini on Rails</h6>
+                <h6 className="m-0">{this.state.lomba.nama}</h6>
               </CardHeader>
               <CardBody>
                 <Row className="mb-3">
@@ -40,7 +69,7 @@ class DetailPengajuan extends Component{
                       Mahasiswa
                     </strong>
                     <span>
-                      Falah Nurli Filano
+                      {this.state.lomba.user.nama}
                     </span>
                   </Col>
                   <Col lg="6">
@@ -48,7 +77,7 @@ class DetailPengajuan extends Component{
                       Penyelenggara Lomba
                     </strong>
                     <span>
-                      Departemen Teknologi HTMC ITS
+                      {this.state.lomba.penyelenggara}
                     </span>
                   </Col>
                 </Row>
@@ -58,7 +87,7 @@ class DetailPengajuan extends Component{
                       Skala
                     </strong>
                     <span>
-                      Jurusan
+                      {this.state.lomba.skala}
                     </span>
                   </Col>
                   <Col lg="6">
@@ -66,13 +95,13 @@ class DetailPengajuan extends Component{
                       Tahun
                     </strong>
                     <span>
-                      2017
+                      {this.state.lomba.tahun}
                     </span>
                   </Col>
                 </Row>
               </CardBody>
               <Card small className="m-3">
-                <CardImg src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/certificate-template-design-654663e2d327b1a9c9c4c2f48759dfaa_screen.jpg?ts=1561531593"/>
+                <CardImg src={this.state.lomba.sertif_link}/>
               </Card>
             </Card>
           </Col>

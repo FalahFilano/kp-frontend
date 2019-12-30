@@ -5,11 +5,12 @@ import DetailPengajuan from '../views/DetailPengajuan';
 export default [
     {
         path: "/admin/verifikasi",
+        exact: true,
         layout: DefaultLayout,
         component: Verifikasi
     },
     {
-        path: "/detailpengajuan",
+        path: "/admin/verifikasi/:id",
         layout: DefaultLayout,
         component: DetailPengajuan
     },

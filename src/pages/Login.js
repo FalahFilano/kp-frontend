@@ -32,7 +32,7 @@ class Login extends Component {
 
   componentDidMount() {
     if (SessionManager.isLoggedIn()) {
-      this.props.history.replace('/b');
+      this.props.history.replace('/');
     }
   }
   
